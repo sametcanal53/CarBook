@@ -1,26 +1,17 @@
-﻿using CarBook.Application.Features.CQRS.Commands.AboutCommands;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Commands.AboutCommands;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.AboutHandlers
 {
-    public class CreateAboutCommandHandler
+    public class CreateAboutCommandHandler : CreateCommandHandler<About, CreateAboutCommand, object>
     {
-        private readonly IRepository<About> _aboutRepository;
-
-        public CreateAboutCommandHandler(IRepository<About> aboutRepository)
+        public CreateAboutCommandHandler(IRepository<About> repository, IMapper mapper) : base(repository, mapper)
         {
-            _aboutRepository = aboutRepository;
         }
 
-        public async Task Handle(CreateAboutCommand command)
-        {
-            await _aboutRepository.CreateAsync(new About
-            {
-                Title = command.Title,
-                Description = command.Description,
-                ImageUrl = command.ImageUrl
-            });
-        }
+
     }
 }

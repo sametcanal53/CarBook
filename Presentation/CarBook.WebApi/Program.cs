@@ -1,3 +1,4 @@
+using CarBook.Application.Features.AutoMapper;
 using CarBook.Application.Features.CQRS.Handlers.AboutHandlers;
 using CarBook.Application.Features.CQRS.Handlers.BannerHandlers;
 using CarBook.Application.Features.CQRS.Handlers.BrandHandlers;
@@ -8,7 +9,9 @@ using CarBook.Persistence.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddScoped<CarBookContext>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // About

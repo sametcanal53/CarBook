@@ -1,12 +1,11 @@
-﻿namespace CarBook.Application.Features.CQRS.Queries.AboutQueries
-{
-    public class GetAboutByIdQuery
-    {
-        public GetAboutByIdQuery(int id)
-        {
-            Id = id;
-        }
+﻿using CarBook.Application.Features.CQRS.Queries.Queries;
 
-        public int Id { get; set; }
+namespace CarBook.Application.Features.CQRS.Queries.AboutQueries
+{
+    public class GetAboutByIdQuery : GetByIdQuery
+    {
+        public GetAboutByIdQuery(int id) : base(id)
+        {
+        }
     }
 }

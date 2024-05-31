@@ -1,12 +1,11 @@
-﻿namespace CarBook.Application.Features.CQRS.Queries.BrandQueries
-{
-    public class GetBrandByIdQuery
-    {
-        public GetBrandByIdQuery(int id)
-        {
-            Id = id;
-        }
+﻿using CarBook.Application.Features.CQRS.Queries.Queries;
 
-        public int Id { get; set; }
+namespace CarBook.Application.Features.CQRS.Queries.BrandQueries
+{
+    public class GetBrandByIdQuery : GetByIdQuery
+    {
+        public GetBrandByIdQuery(int id) : base(id)
+        {
+        }
     }
 }

@@ -1,22 +1,15 @@
-﻿using CarBook.Application.Features.CQRS.Commands.AboutCommands;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Commands.AboutCommands;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.AboutHandlers
 {
-    public class RemoveAboutCommandHandler
+    public class RemoveAboutCommandHandler : RemoveCommandHandler<About, RemoveAboutCommand, object>
     {
-        private readonly IRepository<About> _aboutRepository;
-
-        public RemoveAboutCommandHandler(IRepository<About> aboutRepository)
+        public RemoveAboutCommandHandler(IRepository<About> repository, IMapper mapper) : base(repository, mapper)
         {
-            _aboutRepository = aboutRepository;
-        }
-
-        public async Task Handle(RemoveAboutCommand command)
-        {
-            var about = await _aboutRepository.GetByIdAsync(command.Id);
-            await _aboutRepository.RemoveAsync(about);
         }
     }
 }

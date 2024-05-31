@@ -1,27 +1,15 @@
-﻿using CarBook.Application.Features.CQRS.Results.BannerResults;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
 using CarBook.Application.Features.CQRS.Results.BrandResults;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.BrandHandlers
 {
-    public class GetBrandQueryHandler
+    public class GetBrandQueryHandler : GetQueryHandler<Brand, object, List<GetBrandQueryResult>>
     {
-        private readonly IRepository<Brand> _brandRepository;
-
-        public GetBrandQueryHandler(IRepository<Brand> brandRepository)
+        public GetBrandQueryHandler(IRepository<Brand> repository, IMapper mapper) : base(repository, mapper)
         {
-            _brandRepository = brandRepository;
-        }
-
-        public async Task<List<GetBrandQueryResult>> Handle()
-        {
-            var values = await _brandRepository.GetAllAsync();
-            return values.Select(brand => new GetBrandQueryResult
-            {
-                BrandID = brand.BrandID,
-                Name = brand.Name
-            }).ToList();
         }
     }
 }

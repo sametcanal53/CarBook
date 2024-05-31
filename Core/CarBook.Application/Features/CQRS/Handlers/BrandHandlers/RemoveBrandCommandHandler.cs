@@ -1,22 +1,15 @@
-﻿using CarBook.Application.Features.CQRS.Commands.BrandCommands;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Commands.BrandCommands;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.BrandHandlers
 {
-    public class RemoveBrandCommandHandler
+    public class RemoveBrandCommandHandler : RemoveCommandHandler<Brand, RemoveBrandCommand, object>
     {
-        private readonly IRepository<Brand> _brandRepository;
-
-        public RemoveBrandCommandHandler(IRepository<Brand> brandRepository)
+        public RemoveBrandCommandHandler(IRepository<Brand> repository, IMapper mapper) : base(repository, mapper)
         {
-            _brandRepository = brandRepository;
-        }
-
-        public async Task Handle(RemoveBrandCommand command)
-        {
-            var brand = await _brandRepository.GetByIdAsync(command.Id);
-            await _brandRepository.RemoveAsync(brand);
         }
     }
 }

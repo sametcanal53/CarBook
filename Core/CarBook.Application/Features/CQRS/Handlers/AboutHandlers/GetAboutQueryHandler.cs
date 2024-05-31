@@ -1,28 +1,15 @@
-﻿using CarBook.Application.Features.CQRS.Results.AboutResults;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
+using CarBook.Application.Features.CQRS.Results.AboutResults;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.AboutHandlers
 {
-    public class GetAboutQueryHandler
+    public class GetAboutQueryHandler : GetQueryHandler<About, object, List<GetAboutQueryResult>>
     {
-        private readonly IRepository<About> _aboutRepository;
-
-        public GetAboutQueryHandler(IRepository<About> aboutRepository)
+        public GetAboutQueryHandler(IRepository<About> repository, IMapper mapper) : base(repository, mapper)
         {
-            _aboutRepository = aboutRepository;
-        }
-
-        public async Task<List<GetAboutQueryResult>> Handle()
-        {
-            var values = await _aboutRepository.GetAllAsync();
-            return values.Select(about => new GetAboutQueryResult
-            {
-                AboutID = about.AboutID,
-                Title = about.Title,
-                Description = about.Description,
-                ImageUrl = about.ImageUrl
-            }).ToList();
         }
     }
 }

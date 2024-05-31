@@ -1,30 +1,16 @@
-﻿using CarBook.Application.Features.CQRS.Queries.BannerQueries;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
+using CarBook.Application.Features.CQRS.Queries.BannerQueries;
 using CarBook.Application.Features.CQRS.Results.BannerResults;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.BannerHandlers
 {
-    public class GetBannerByIdQueryHandler
+    public class GetBannerByIdQueryHandler : GetByIdQueryHandler<Banner, GetBannerByIdQuery, GetBannerByIdQueryResult>
     {
-        private readonly IRepository<Banner> _bannerRepository;
-
-        public GetBannerByIdQueryHandler(IRepository<Banner> bannerRepository)
+        public GetBannerByIdQueryHandler(IRepository<Banner> repository, IMapper mapper) : base(repository, mapper)
         {
-            _bannerRepository = bannerRepository;
-        }
-
-        public async Task<GetBannerByIdQueryResult> Handle(GetBannerByIdQuery query)
-        {
-            var banner = await _bannerRepository.GetByIdAsync(query.Id);
-            return new GetBannerByIdQueryResult
-            {
-                BannerID = banner.BannerID,
-                Title = banner.Title,
-                Description = banner.Description,
-                VideoDescription = banner.VideoDescription,
-                VideoUrl = banner.VideoUrl
-            };
         }
     }
 }

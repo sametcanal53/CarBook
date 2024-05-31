@@ -1,24 +1,15 @@
-﻿using CarBook.Application.Features.CQRS.Commands.BrandCommands;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Commands.BrandCommands;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.BrandHandlers
 {
-    public class CreateBrandCommandHandler
+    public class CreateBrandCommandHandler : CreateCommandHandler<Brand, CreateBrandCommand, object>
     {
-        private readonly IRepository<Brand> _brandRepository;
-
-        public CreateBrandCommandHandler(IRepository<Brand> brandRepository)
+        public CreateBrandCommandHandler(IRepository<Brand> repository, IMapper mapper) : base(repository, mapper)
         {
-            _brandRepository = brandRepository;
-        }
-
-        public async Task Handle(CreateBrandCommand command)
-        {
-            await _brandRepository.CreateAsync(new Brand
-            {
-                Name = command.Name
-            });
         }
     }
 }

@@ -1,22 +1,15 @@
-﻿using CarBook.Application.Features.CQRS.Commands.BannerCommands;
+﻿using AutoMapper;
+using CarBook.Application.Features.CQRS.Commands.BannerCommands;
+using CarBook.Application.Features.CQRS.Handlers.BaseHandlers;
 using CarBook.Application.Interfaces;
 using CarBook.Domain.Entities;
 
 namespace CarBook.Application.Features.CQRS.Handlers.BannerHandlers
 {
-    public class RemoveBannerCommandHandler
+    public class RemoveBannerCommandHandler : RemoveCommandHandler<Banner, RemoveBannerCommand, object>
     {
-        private readonly IRepository<Banner> _bannerRepository;
-
-        public RemoveBannerCommandHandler(IRepository<Banner> bannerRepository)
+        public RemoveBannerCommandHandler(IRepository<Banner> repository, IMapper mapper) : base(repository, mapper)
         {
-            _bannerRepository = bannerRepository;
-        }
-
-        public async Task Handle(RemoveBannerCommand command)
-        {
-            var banner = await _bannerRepository.GetByIdAsync(command.Id);
-            await _bannerRepository.RemoveAsync(banner);
         }
     }
 }
